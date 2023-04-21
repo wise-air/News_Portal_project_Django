@@ -52,6 +52,9 @@ class Post(models.Model):
     def preview(self):
         return f'{self.text[0:64]}...'
 
+    def __str__(self):
+        return f'{self.headline.title()}: {self.text[:64]}...'
+
 
 class PostCategory(models.Model):
     postThrough = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -73,3 +76,5 @@ class Comment(models.Model):
         self.commentRating += 1
         self.save()
 
+    def __str__(self):
+        return f'{self.comment.title()} (User:{self.userComm})'
