@@ -76,14 +76,10 @@ for i in best_rate:
 
 10.Вывести дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи, основываясь на лайках/дислайках к этой статье:
 r=Post.objects.order_by("-postRating")[:1].values('id')
+
 Post.objects.order_by('-postRating')[:1].values('pubDate', 'author__authUser__username', 'postRating', 'headline'), Post.objects.get(id=r).preview()
 
 
 11.Вывести все комментарии (дата, пользователь, рейтинг, текст) к этой статье:
 
-Все комментарии:
-Comment.objects.filter().values('dateOfComment', 'userComm__username', 'commentRating', 'comment')
-
-Комментарий лучшего по рейтингу:
-Comment.objects.order_by('-commentRating')[:1].values('dateOfComment', 'userComm__username', 'commentRating', 'comment')
-
+Comment.objects.order_by('-postComm__postRating')[:1].values('dateOfComment', 'userComm__username', 'commentRating', 'comment')
