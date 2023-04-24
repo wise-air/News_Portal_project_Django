@@ -80,4 +80,8 @@ Post.objects.order_by('-postRating')[:1].values('pubDate', 'author__authUser__us
 
 
 11.Вывести все комментарии (дата, пользователь, рейтинг, текст) к этой статье:
+Все комментарии:
 Comment.objects.filter().values('dateOfComment', 'userComm__username', 'commentRating', 'comment')
+Комментарий лучшего по рейтингу:
+Comment.objects.order_by('-commentRating')[:1].values('dateOfComment', 'userComm__username', 'commentRating', 'comment')
+
