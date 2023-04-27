@@ -1,85 +1,45 @@
-Команды в Shell
-	from news.models import *
+    1. Добавьте постраничный вывод на /news/, чтобы на одной странице было не больше 10 новостей и видны номера лишь ближайших страниц, а также возможность перехода к первой или последней странице.
 
-1.Создать двух пользователей (с помощью метода User.objects.create_user('username’)):
-user1 = User.objects.create_user(username='Алексей Быстров')
-user2 = User.objects.create_user(username='Виктория Репина')
+http://127.0.0.1:8000/news/
 
-Делал команды ниже вместо верхних, т.к. Юзеры у меня уже были созданы с соответствующими ID:
-user1 = User.objects.get(id=12)
-user2 = User.objects.get(id=13)
+    2. Добавьте страницу /news/search. На ней должна быть реализована возможность искать новости по определённым критериям. Критерии должны быть следующие:
+            * по названию;
+            * по категории;
+            * позже указываемой даты.
+        * Бонусом добавлена возможность поиска по:
+            * Автору статьи
 
-user1.save()
-user2.save()
+Поиск регисторонезависим, т.е. можно писать как заглавными, так и прописными
+http://127.0.0.1:8000/news/search/ 
 
-2.Создать два объекта модели Author, связанные с пользователями:
-author1 = Author.objects.create(authUser=user1)
-a1 = Author.objects.get(id=1)
-a1.save()
-author2 = Author.objects.create(authUser=user2)
-a2 = Author.objects.get(id=2)
-a2.save()
+    3. Убедитесь, что можно выполнить фильтрацию сразу по нескольким критериям. 
+Фильтрация работает по нескольким критериям
 
-3.Добавить 4 категории в модель Category:
-Category.objects.create(catName='Спорт')
-Category.objects.create(catName='Культура')
-Category.objects.create(catName='Политика')
-Category.objects.create(catName='Общество')
+    4. Запрограммируйте страницы создания, редактирования и удаления новостей и статей. Предлагаем вам расположить страницы по следующим ссылкам:
+    * /news/create/
+http://127.0.0.1:8000/news/news/create/
 
-4.Добавить 2 статьи и 1 новость:
-post1 = Post.objects.create(author=author1, typeChoice='NEW', headline='Хоккейные боссы Чехии сели в лужу. Сокрушительный провал хозяев чемпионата мира', text='Международная федерация хоккея (IIHF) отстранила российских спортсменов от участия в двух грядущих чемпионатах мира. В нынешнем году мы не едем в Латвию и Финляндию, а в следующем — в Чехию. Тем временем хозяева ЧМ-2024 вовсю готовятся к знаменательному событию.')
+    * /news/<int:pk>/edit/
+18ая новость указана в ссылке в качестве примера
+http://127.0.0.1:8000/news/news/18/update/
 
-post2 = Post.objects.create(author=author1, typeChoice='ART', headline='Норрис: Я очень критично оцениваю свои выступления', text='В McLaren слабо начали сезон 2023 года и только в третьей гонке во многом благодаря сходу соперников заработали первые очки. Гонщик команды Ландо Норрис рассказал, что самокритика помогает ему поддерживать мотивацию в отсутствии высоких результатов на трассе.')
-	
-post3 = Post.objects.create(author=author2, typeChoice='ART', headline='Режиссер Клим Шипенко заявил о реакции Тома Круза на его фильм «Вызов»', text='Клим Шипенко, который отныне позиционирует себя первым в мире и в истории режиссером, реально слетавшим в космос, а также снявшим на земной орбите первый на земном шаре художественный фильм, рассказал о том, что именно он думает относительно критиков Запада.')
+Если попытаемся изменить статью, а не новость, будет возвращен запрет на действия
+http://127.0.0.1:8000/news/news/10/update/
 
+    * /news/<int:pk>/delete/
+30ая новость указана в ссылке в качестве примера
+http://127.0.0.1:8000/news/news/30/delete/
 
-5.Присвоить им категории (как минимум в одной статье/новости должно быть не меньше 2 категорий):
-Post.objects.get(id=1).postCategory.add(Category.objects.get(id=1))
-p1 = Post.objects.get(id=1)
-p1.save()
-Post.objects.get(id=2).postCategory.add(Category.objects.get(id=1))
-Post.objects.get(id=3).postCategory.add(Category.objects.get(id=2))
-Post.objects.get(id=3).postCategory.add(Category.objects.get(id=4))
-Post.objects.filter(id=1).values('postCategory__catName')
-Post.objects.filter(id=2).values('postCategory__catName')
-Post.objects.filter(id=3).values('postCategory__catName')
+Если попытаемся удалить статью, а не новость, будет возвращен запрет на действия
+http://127.0.0.1:8000/news/news/28/delete/
 
-6.Создать как минимум 4 комментария к разным объектам модели Post (в каждом объекте должен быть как минимум один комментарий):
-Comment.objects.create(postComm=p1, userComm=user2, comment='Люблю хоккей')
+    * /articles/create/
+http://127.0.0.1:8000/news/article/create/
 
-Comment.objects.create(postComm=Post.objects.get(id=2), userComm=user2, comment='Жду продолжение фильма «вызов» с Томом в главной роли')
+    * /articles/<int:pk>/edit/
+10ая статья указана в ссылке в качестве примера
+http://127.0.0.1:8000/news/article/10/update/
 
-Comment.objects.create(postComm=Post.objects.get(id=2), userComm=user1, comment='Ландо, good luck в новом сезоне!')
-
-Comment.objects.create(postComm=Post.objects.get(id=3), userComm=user1, comment='Фильм получился хорошим')
-
-7.Применяя функции like() и dislike() к статьям/новостям и комментариям, скорректировать рейтинги этих объектов:
-Comment.objects.get(id=1).like()
-Comment.objects.get(id=2).dislike()
-Comment.objects.get(id=1).like()
-p1.like()
-Post.objects.get(id=2).like()
-Post.objects.get(id=3).like()
-Post.objects.get(id=3).like()
-
-8.Обновить рейтинги пользователей:
-a1.update_rating()
-a2.update_rating()
-
-9.Вывести username и рейтинг лучшего пользователя (применяя сортировку и возвращая поля первого объекта):
-best_rate = Author.objects.order_by('-authorRating')[:1]
-for i in best_rate:
-	i.authorRating
-	i.authUser.username
-
-
-10.Вывести дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи, основываясь на лайках/дислайках к этой статье:
-r=Post.objects.order_by("-postRating")[:1].values('id')
-
-Post.objects.order_by('-postRating')[:1].values('pubDate', 'author__authUser__username', 'postRating', 'headline'), Post.objects.get(id=r).preview()
-
-
-11.Вывести все комментарии (дата, пользователь, рейтинг, текст) к этой статье:
-
-Comment.objects.order_by('-postComm__postRating')[:1].values('dateOfComment', 'userComm__username', 'commentRating', 'comment')
+    * /articles/<int:pk>/delete/
+28ая статья указана в ссылке в качестве примера
+http://127.0.0.1:8000/news/article/28/delete/
