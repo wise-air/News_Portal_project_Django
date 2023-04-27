@@ -1,15 +1,18 @@
 from django.urls import path
-# Импортируем созданное нами представление
-from .views import PostList, PostDetail
+
+from .views import PostList, PostSearch, PostDetail, NewsCreate, NewsUpdate, NewsDelete, ArticleCreate, ArticleUpdate, ArticleDelete #create_news
 
 
 urlpatterns = [
-   # path — означает путь.
-   # В данном случае путь у нас останется пустым,
-   # чуть позже станет ясно почему.
-   # Т.к. наше объявленное представление является классом,
-   # а Django ожидает функцию, нам надо представить этот класс в виде view.
-   # Для этого вызываем метод as_view.
-   path('', PostList.as_view()),
-   path('<int:id>', PostDetail.as_view()),
+   path('', PostList.as_view(), name='posts_list'),
+   path('search/', PostSearch.as_view(), name='post_search'),
+   path('<int:id>', PostDetail.as_view(), name='post_details'),
+   # path('news/create/', create_news, name='news_create'),
+   path('news/create/', NewsCreate.as_view(), name='news_create'),
+   path('article/create/', ArticleCreate.as_view(), name='article_create'),
+   path('news/<int:id>/update/', NewsUpdate.as_view(), name='news_update'),
+   path('article/<int:id>/update/', ArticleUpdate.as_view(), name='article_update'),
+   path('news/<int:id>/delete/', NewsDelete.as_view(), name='news_delete'),
+   path('article/<int:id>/delete/', ArticleDelete.as_view(), name='article_delete'),
+
 ]

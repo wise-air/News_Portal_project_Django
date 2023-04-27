@@ -1,13 +1,14 @@
-<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
 {% extends 'flatpages/default.html' %}
 
-<!-- Название у нас будет products -->
+{% load custom_filters %}
+
 {% block title %}
-Comments
+Комментарии
 {% endblock title %}
 
-<!-- В контенте на странице мы выводим все комментарии -->
+
+
+
 {% block content %}
-<h1>Комментарии</h1>
-{{ comment }}
+
 {% endblock content %}

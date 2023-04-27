@@ -1,0 +1,55 @@
+{
+	"folders": {},
+	"connections": {
+		"sqlite_jdbc-187869bf914-bd24254a553fb3f": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "db.sqlite3",
+			"save-password": true,
+			"configuration": {
+				"database": "/Users/wiseair/PycharmProjects/News_portal — копия/news_portal/db.sqlite3",
+				"url": "jdbc:sqlite:/Users/wiseair/PycharmProjects/News_portal — копия/news_portal/db.sqlite3",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"auth-model": "native"
+			}
+		},
+		"sqlite_jdbc-187869e2505-69bb838f167c731f": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "db.sqlite3 2",
+			"save-password": true,
+			"configuration": {
+				"database": "/Users/wiseair/PycharmProjects/News_portal — копия/news_portal/db.sqlite3",
+				"url": "jdbc:sqlite:/Users/wiseair/PycharmProjects/News_portal — копия/news_portal/db.sqlite3",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"auth-model": "native"
+			}
+		},
+		"sqlite_jdbc-18786a4d0f1-19c36141928fefec": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "db.sqlite3 3",
+			"save-password": true,
+			"configuration": {
+				"database": "/Users/wiseair/PycharmProjects/News_portal — копия/news_portal/db.sqlite3",
+				"url": "jdbc:sqlite:/Users/wiseair/PycharmProjects/News_portal — копия/news_portal/db.sqlite3",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"auth-model": "native"
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Разработка",
+			"color": "255,255,255",
+			"description": "База данных для разработки",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}

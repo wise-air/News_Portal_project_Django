@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Sum
+from django.urls import reverse
 
 
 class Author(models.Model):
@@ -20,9 +21,23 @@ class Author(models.Model):
         self.authorRating = pRat * 3 + cRat
         self.save()
 
+    def __str__(self):
+        return '{}'.format(self.authUser)
+
+    class Meta:
+        verbose_name = 'Автор'
+        verbose_name_plural = 'Авторы'
+
 
 class Category(models.Model):
-    catName = models.CharField(max_length=255, unique=True)
+    catName = models.CharField(max_length=255, unique=True, verbose_name='Категория')
+
+    def __str__(self):
+        return f'{self.catName.title()}'
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
 
 
 class Post(models.Model):
@@ -33,13 +48,13 @@ class Post(models.Model):
         (article, 'Статья'),
         (news, 'Новость')
     ]
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    typeChoice = models.CharField(max_length=3, choices=POSITIONS, default=news)
-    pubDate = models.DateTimeField(auto_now_add=True)
-    postCategory = models.ManyToManyField(Category, through='PostCategory', default="Категория")
-    headline = models.CharField(max_length=255)
-    text = models.TextField(default="Текст статьи")
-    postRating = models.SmallIntegerField(default=0)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, verbose_name='Автор публикации')
+    typeChoice = models.CharField(max_length=3, choices=POSITIONS, default=news, verbose_name='Вид публикации')
+    pubDate = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
+    postCategory = models.ManyToManyField(Category, through='PostCategory', default="Категория", verbose_name='Категория')
+    headline = models.CharField(max_length=255, verbose_name='Заголовок')
+    text = models.TextField(default="Текст статьи", verbose_name='Текст')
+    postRating = models.SmallIntegerField(default=0, verbose_name='Рейтинг')
 
     def like(self):
         self.postRating += 1
@@ -53,7 +68,14 @@ class Post(models.Model):
         return f'{self.text[0:64]}...'
 
     def __str__(self):
-        return f'{self.headline.title()}: {self.text[:64]}...'
+        return f'{self.headline.title()}: {self.text[:15]}...'
+
+    def get_absolute_url(self):
+        return reverse('post_details', args=[str(self.id)])
+
+    class Meta:
+        verbose_name = 'Публикация'
+        verbose_name_plural = 'Публикации'
 
 
 class PostCategory(models.Model):
