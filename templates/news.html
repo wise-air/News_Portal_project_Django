@@ -42,9 +42,6 @@
                <td>{{ post.get_typeChoice_display}}</td>
                <td>{{ post.pubDate|date:'d M Y'}}</td>
                <td>{{ post.headline|censor:''}}</td>
-                <!-- Добавим специальный фильтр truncatechars,
-                чтобы ограничить количество символов до 15.
-                Все остальные символы превратятся в многоточие. -->
                <td>{{ post.text|truncatechars:20|censor:''}}</td>
                <td>{{ post.author.authUser}}</td>
                <td>{{ post.postRating}}</td>
@@ -58,9 +55,6 @@
                <td>{{ post.get_typeChoice_display}}</td>
                <td>{{ post.pubDate|date:'d M Y'}}</td>
                <td>{{ post.headline|censor:''}}</td>
-                <!-- Добавим специальный фильтр truncatechars,
-                чтобы ограничить количество символов до 15.
-                Все остальные символы превратятся в многоточие. -->
                <td>{{ post.text|truncatechars:20|censor:''}}</td>
                <td>{{ post.author.authUser}}</td>
                <td>{{ post.postRating}}</td>
