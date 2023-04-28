@@ -75,7 +75,7 @@ class ArticleCreate(CreateView):
 class NewsUpdate(UpdateView):
     form_class = PostForm
     model = Post
-    template_name = 'create_news.html'
+    template_name = 'edit_news.html'
     pk_url_kwarg = 'id'
 
     def form_valid(self, form):
@@ -89,7 +89,7 @@ class NewsUpdate(UpdateView):
 class ArticleUpdate(UpdateView):
     form_class = PostForm
     model = Post
-    template_name = 'create_article.html'
+    template_name = 'edit_article.html'
     pk_url_kwarg = 'id'
 
     def form_valid(self, form):
