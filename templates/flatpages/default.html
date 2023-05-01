@@ -32,16 +32,6 @@
                        <li class="nav-item">
                            <a class="nav-link" href="/news/search/">Поиск публикации</a>
                        </li>
-                       {% if perms.simpleapp.add_product %}
-                        <li class="nav-item">
-                           <a class="nav-link" href="{% url 'news_create' %}">Создать новость</a>
-                       </li>
-                       {% endif %}
-                       {% if perms.simpleapp.add_product %}
-                       <li class="nav-item">
-                           <a class="nav-link" href="{% url 'article_create' %}">Создать статью</a>
-                       </li>
-                       {% endif %}
                        <li class="nav-item">
                            <a class="nav-link" href="/accounts/signup/">Регистрация</a>
                        </li>

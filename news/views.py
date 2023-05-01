@@ -2,7 +2,7 @@ from datetime import datetime
 from django.urls import reverse_lazy
 
 # from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
 # from django.http import HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import PermissionRequiredMixin
