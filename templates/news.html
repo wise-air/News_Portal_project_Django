@@ -21,7 +21,7 @@
        </form>
    {% endif %}
 
-   <hr>
+ <hr>
    {% if posts or postsearch %}
        <table>
            <tr>
@@ -32,6 +32,9 @@
                <td><b>Краткое описание</b></td>
                <td><b>Автор</b></td>
                <td><b>Рейтинг</b></td>
+               {% if perms.news.news_update or perms.news.news_delete %}
+                <td><b>Действия</b></td>
+               {% endif %}
            </tr>
 
 
@@ -45,6 +48,15 @@
                <td>{{ post.text|truncatechars:20|censor:''}}</td>
                <td>{{ post.author.authUser}}</td>
                <td>{{ post.postRating}}</td>
+               <td>
+                {% if perms.news.news_update or perms.news.article_update %}
+                <a href=http://127.0.0.1:8000/news/{{post.typeChoice}}/{{post.id}}/update/>Изменить</a>
+                {% endif %}
+                {% if perms.news.news_delete or perms.news.article_delete %}
+                <a href=http://127.0.0.1:8000/news/{{post.typeChoice}}/{{post.id}}/delete/>Удалить</a>
+                {% endif %}
+               </td>
+
            </tr>
            {% endfor %}
 
@@ -58,6 +70,14 @@
                <td>{{ post.text|truncatechars:20|censor:''}}</td>
                <td>{{ post.author.authUser}}</td>
                <td>{{ post.postRating}}</td>
+               <td>
+                {% if perms.news.news_update or perms.news.article_update %}
+                <a href=http://127.0.0.1:8000/news/{{post.typeChoice}}/{{post.id}}/update/>Изменить</a>
+                {% endif %}
+                {% if perms.news.news_delete or perms.news.article_delete %}
+                <a href=http://127.0.0.1:8000/news/{{post.typeChoice}}/{{post.id}}/delete/>Удалить</a>
+                {% endif %}
+               </td>
            </tr>
            {% endfor %}
 

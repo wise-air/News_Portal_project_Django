@@ -4,7 +4,8 @@ from django.urls import reverse_lazy
 # from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 # from django.http import HttpResponseRedirect
-from django.core.exceptions import *
+from django.core.exceptions import PermissionDenied
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from .models import Post
 from .filters import PostFilter
@@ -52,7 +53,8 @@ class PostDetail(DetailView):
     pk_url_kwarg = 'id'
 
 
-class NewsCreate(CreateView):
+class NewsCreate(PermissionRequiredMixin, CreateView):
+    permission_required = ('news.add_post',)
     form_class = PostForm
     model = Post
     template_name = 'create_news.html'
@@ -62,7 +64,8 @@ class NewsCreate(CreateView):
         self.object.typeChoice = Post.news
         return super().form_valid(form)
 
-class ArticleCreate(CreateView):
+class ArticleCreate(PermissionRequiredMixin, CreateView):
+    permission_required = ('news.add_post',)
     form_class = PostForm
     model = Post
     template_name = 'create_article.html'
@@ -72,7 +75,8 @@ class ArticleCreate(CreateView):
         self.object.typeChoice = Post.article
         return super().form_valid(form)
 
-class NewsUpdate(UpdateView):
+class NewsUpdate(PermissionRequiredMixin, UpdateView):
+    permission_required = ('news.change_post',)
     form_class = PostForm
     model = Post
     template_name = 'edit_news.html'
@@ -86,7 +90,8 @@ class NewsUpdate(UpdateView):
             raise PermissionDenied()
         return super().form_valid(form)
 
-class ArticleUpdate(UpdateView):
+class ArticleUpdate(PermissionRequiredMixin, UpdateView):
+    permission_required = ('news.change_post',)
     form_class = PostForm
     model = Post
     template_name = 'edit_article.html'
@@ -101,7 +106,8 @@ class ArticleUpdate(UpdateView):
         return super().form_valid(form)
 
 
-class NewsDelete(DeleteView):
+class NewsDelete(PermissionRequiredMixin, DeleteView):
+    permission_required = ('news.delete_post',)
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('posts_list')
@@ -114,7 +120,8 @@ class NewsDelete(DeleteView):
             raise PermissionDenied()
 
 
-class ArticleDelete(DeleteView):
+class ArticleDelete(PermissionRequiredMixin, DeleteView):
+    permission_required = ('news.delete_post',)
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('posts_list')
@@ -125,14 +132,3 @@ class ArticleDelete(DeleteView):
             return super().form_valid(form)
         else:
             raise PermissionDenied()
-
-# def create_news(request):
-#     form = PostForm()
-#
-#     if request.method == 'POST':
-#         form = PostForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect('/news/')
-#
-#     return render(request, 'create_news.html', {'form': form})

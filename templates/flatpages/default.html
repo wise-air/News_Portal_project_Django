@@ -25,18 +25,36 @@
                <div class="collapse navbar-collapse" id="navbarResponsive">
                    <ul class="navbar-nav ml-auto">
                        <li class="nav-item active">
-                           <a class="nav-link" href="#">Home
-                               <span class="sr-only">(current)</span>
+                           <a class="nav-link" href="/news/">Все новости
+                               <span class="sr-only">(текущая)</span>
                            </a>
                        </li>
                        <li class="nav-item">
-                           <a class="nav-link" href="/authors/">authors</a>
+                           <a class="nav-link" href="/news/search/">Поиск публикации</a>
+                       </li>
+                       {% if perms.simpleapp.add_product %}
+                        <li class="nav-item">
+                           <a class="nav-link" href="{% url 'news_create' %}">Создать новость</a>
+                       </li>
+                       {% endif %}
+                       {% if perms.simpleapp.add_product %}
+                       <li class="nav-item">
+                           <a class="nav-link" href="{% url 'article_create' %}">Создать статью</a>
+                       </li>
+                       {% endif %}
+                       <li class="nav-item">
+                           <a class="nav-link" href="/accounts/signup/">Регистрация</a>
                        </li>
                        <li class="nav-item">
-                           <a class="nav-link" href="/news/">news</a>
+                           <a class="nav-link" href="/accounts/login/">Авторизоваться</a>
                        </li>
                        <li class="nav-item">
-                           <a class="nav-link" href="/comment/">comment</a>
+                           <a class="nav-link" href="/accounts/logout/">Выйти (LogOut)</a>
+                       </li>
+                       <li>
+                           <h1>
+                               <a class="navbar-brand" href="#">Вы вошли как : {{ user }}</a>
+                           </h1>
                        </li>
                    </ul>
                </div>
